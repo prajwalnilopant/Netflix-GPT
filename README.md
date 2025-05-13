@@ -2,6 +2,8 @@
 
 - Create Vite
 - Delete initial CSS & Configure Tailwind CSS
+- Header
+- Login Form
 
 # Features
 
