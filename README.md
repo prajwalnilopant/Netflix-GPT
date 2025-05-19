@@ -3,7 +3,18 @@
 - Create Vite
 - Delete initial CSS & Configure Tailwind CSS
 - Header
+- Routing of App
 - Login Form
+- Sign Up Form
+- Form Validation
+- useRef() Hook
+- Firebase set up. Enabled authentication.
+- Deploying the app on Firebase
+- Create Sign Up user account
+- Implement Sign In user API
+- Created Redux Store with userSlice
+- Implemented Sign Out.
+- Update Profile
 
 # Features
 
