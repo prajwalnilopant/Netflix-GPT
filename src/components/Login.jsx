@@ -4,14 +4,15 @@ import { checkValidData } from "../utils/validate";
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { USER_AVATAR } from "../utils/constants";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
 
   // useRef() will return a .current property which would have all the data.
@@ -43,7 +44,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: "https://avatars.githubusercontent.com/u/34432516?v=4",
+            photoURL: USER_AVATAR,
           })
             .then(() => {
               // We are dispatching here using auth.currentUser because of the as soon as the user signs up and goes to the browse page for the very first time, displayName & photoURL won't be available.
@@ -51,7 +52,8 @@ const Login = () => {
               // "auth.currentUser" would have updated value than the "user" would have. (Reason: updateProfile is called after user is declared)
               const { uid, email, displayName, photoURL } = auth.currentUser;
               dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL }));
-              navigate("/browse");
+              // This is not needed here. As we are navigating from Header.jsx
+              // navigate("/browse");
             })
             .catch((error) => {
               setErrorMessage(errorMessage);
@@ -68,8 +70,10 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
-          navigate("/browse");
+
+          // This is not needed here. As we are navigating from Header.jsx
+          // console.log(user);
+          // navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
