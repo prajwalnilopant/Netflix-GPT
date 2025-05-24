@@ -34,7 +34,11 @@
 - Build Movie Card
 - TMDB Image CDN UR
 - Made the BrowsePage to look nice with the help of Tailwind CSS
-- Custom hook for usePopularMovies.
+- Custom hook for usePopularMovies, useTopRatedMovies, useUpcomingMovies
+- GPT Search Feature.
+- GPT Search Bar
+- Multilingual Feature in our App.
+- GPT API Integration (Get)
 
 # Features
 
