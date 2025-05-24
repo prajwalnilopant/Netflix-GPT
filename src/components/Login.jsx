@@ -7,7 +7,7 @@ import { auth } from "../utils/firebase";
 // import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { USER_AVATAR } from "../utils/constants";
+import { BG_URL, USER_AVATAR } from "../utils/constants";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -87,10 +87,7 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute">
-        <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/f83b20c7-a289-4aac-bb47-c08a9fec4de7/web/US-en-20250507-TRIFECTA-perspective_d3be4350-0a72-4b05-929b-bc37b3466a11_large.jpg"
-          alt="background-image"
-        />
+        <img src={BG_URL} alt="background-image" />
       </div>
       <form onSubmit={(e) => e.preventDefault()} className="absolute p-12 bg-black/80 w-3/12 my-24 mx-auto right-0 left-0 flex flex-col">
         <h1 className="text-white font-bold text-2xl p-4">{isSignInForm ? "Sign In" : "Sign Up"}</h1>

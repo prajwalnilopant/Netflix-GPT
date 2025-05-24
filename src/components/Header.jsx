@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { addUser, removeUser } from "../utils/userSlice";
-import { LOGO } from "../utils/constants";
+import { LOGO, SUPPORTED_LANGUAGES } from "../utils/constants";
+import { toggleGptSearchView } from "../utils/gptSlice";
+import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
   // Always keep useDispatch on the top.
@@ -19,6 +21,12 @@ const Header = () => {
   // 3. Do not use navigate here in the code, but instead navigate it from some other place. Essentially a Child. We are moving it to Login
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
+  const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
+
+  const handleGptSearchClick = () => {
+    // Toggle GPT Search Page.
+    dispatch(toggleGptSearchView());
+  };
 
   const handleSignOut = () => {
     signOut(auth)
@@ -31,6 +39,10 @@ const Header = () => {
         // An error happened. Navigate to Error Page.
         // navigate("/error");
       });
+  };
+
+  const handleLanguageChange = (e) => {
+    dispatch(changeLanguage(e.target.value));
   };
 
   // This useEffect runs only once.
@@ -61,11 +73,26 @@ const Header = () => {
 
   return (
     <div className="absolute w-screen py-4 px-8 bg-gradient-to-b from-black z-10 flex justify-between">
-      <img className="w-35" src={LOGO} alt="netflix-logo" />
+      <img className="h-10 w-auto object-contain" src={LOGO} alt="netflix-logo" />
       {user && (
-        <div className="flex">
-          <img src={user?.photoURL} alt="userIcon" className="w-10" />
-          <button onClick={handleSignOut} className="mx-1 font-bold bg-red-500 text-black rounded hover:bg-red-600 w-18 h-10 flex items-center justify-center">
+        <div className="flex items-center gap-4 p-2">
+          {showGptSearch && (
+            <select
+              className="py-2 px-4 border border-gray-300 rounded-md bg-gray-700 text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition"
+              onChange={handleLanguageChange}
+            >
+              {SUPPORTED_LANGUAGES.map((lang) => (
+                <option key={lang.identifier} value={lang.identifier}>
+                  {lang.name}
+                </option>
+              ))}
+            </select>
+          )}
+          <button className="py-2 px-5 bg-green-600 text-white rounded-md cursor-pointer font-semibold hover:bg-green-700 transition" onClick={handleGptSearchClick}>
+            {!showGptSearch ? "GPT Search" : "Homepage"}
+          </button>
+          <img src={user?.photoURL} alt="User Icon" className="w-10 h-10 rounded-full object-cover border border-gray-300" />
+          <button onClick={handleSignOut} className="py-2 px-5 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 transition cursor-pointer">
             Sign Out
           </button>
         </div>
