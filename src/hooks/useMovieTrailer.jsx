@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { API_OPTIONS } from "../utils/constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTrailerVideo } from "../utils/moviesSlice";
 
 const useMovieTrailer = (movieId) => {
   const dispatch = useDispatch(); // Approach 2
   // const [trailerId, setTrailerId] = useState(null); ---> Approach 1
+
+  const trailerVideo = useSelector((store) => store.movies.trailerVideo);
 
   // Fetch the trailer & updating the store with trailer video.
   const getMovieVideos = async () => {
@@ -19,7 +21,8 @@ const useMovieTrailer = (movieId) => {
     dispatch(addTrailerVideo(trailer)); // Approach 2
   };
   useEffect(() => {
-    getMovieVideos();
+    // Memoization
+    !trailerVideo && getMovieVideos();
   }, []);
 };
 

@@ -38,7 +38,14 @@
 - GPT Search Feature.
 - GPT Search Bar
 - Multilingual Feature in our App.
-- GPT API Integration (Get)
+- GPT API Integration (Get OpenAI API Key)
+- GPT Search API Call
+- Fetched GPT suggested movies from TMDB based on the user prompts
+- Created a GPT Slice and then added data there.
+- Reused movieList component to make movie suggestion container
+- Memoization
+- Added .env file to secure APIs and added .env to gitignore
+- Made our site responsive.
 
 # Features
 
